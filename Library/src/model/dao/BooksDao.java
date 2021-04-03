@@ -3,6 +3,7 @@ package model.dao;
 import java.util.List;
 
 import model.entities.Books;
+import model.entities.Department;
 
 public interface BooksDao {
 	void insert(Books obj);
@@ -10,4 +11,5 @@ public interface BooksDao {
 	void deleteById(Integer obj);
 	Books findById(Integer id);
 	List<Books> findAll();
+	List<Books> findByDepartment(Department department);
 }
