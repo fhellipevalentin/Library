@@ -13,12 +13,17 @@ public class Program {
 		
 		BooksDao booksDao = DaoFactory.createBooksDao();
 		System.out.println("==== TEST 1: books findById ====");
-		Books books = booksDao.findById(3);
+		Books books = booksDao.findById(4);
 		System.out.println(books);
 
 		System.out.println("==== TEST 2: books findByDepartment ====");
 		Department department = new Department(1, null);
 		List<Books> list = booksDao.findByDepartment(department);
+		for (Books obj : list) {
+			System.out.println(obj);
+		}
+		System.out.println("==== TEST 3: books findAll ====");
+		list = booksDao.findAll();
 		for (Books obj : list) {
 			System.out.println(obj);
 		}

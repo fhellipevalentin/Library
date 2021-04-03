@@ -92,8 +92,38 @@ public class BooksDaoJDBC implements BooksDao{
 
 	@Override
 	public List<Books> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try { 
+			st = conn.prepareStatement(
+					"SELECT books.*,department.Name as DepName " + 
+					"FROM books INNER JOIN department " + 
+					"ON books.DepartmentId = department.Id " + 
+ 					"ORDER BY Name");
+			rs = st.executeQuery();
+			
+			List<Books> list = new ArrayList<>();
+			Map<Integer, Department> map = new HashMap<>();
+			while (rs.next()) {
+				
+				Department dep = map.get(rs.getInt("DepartmentId"));
+				
+				if (dep == null) {
+					dep = instantiateDepartment(rs);
+					map.put(rs.getInt("DepartmentId"), dep);
+				}
+				Books obj = instantiateBooks(rs, dep);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override
