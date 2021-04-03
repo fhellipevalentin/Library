@@ -52,17 +52,8 @@ public class BooksDaoJDBC implements BooksDao{
 			rs = st.executeQuery();
 			
 			if (rs.next()) {
-				Department dep = new Department();
-				dep.setId(rs.getInt("DepartmentId"));
-				dep.setName(rs.getString("DepName"));
-				Books obj = new Books();
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
-				obj.setAuthor(rs.getString("Author"));
-				obj.setMarketPrice(rs.getDouble("MarketPrice"));
-				obj.setReleaseDate(rs.getDate("ReleaseDate"));
-				obj.setDonateDate(rs.getDate("DonateDate"));
-				obj.setDepartment(dep);
+				Department dep = instantiateDepartment(rs);
+				Books obj = instantiateBooks(rs, dep);
 				return obj;
 			}
 			return null;
@@ -74,6 +65,25 @@ public class BooksDaoJDBC implements BooksDao{
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+
+	private Books instantiateBooks(ResultSet rs, Department dep) throws SQLException {
+		Books obj = new Books();
+		obj.setId(rs.getInt("Id"));
+		obj.setName(rs.getString("Name"));
+		obj.setAuthor(rs.getString("Author"));
+		obj.setMarketPrice(rs.getDouble("MarketPrice"));
+		obj.setReleaseDate(rs.getDate("ReleaseDate"));
+		obj.setDonateDate(rs.getDate("DonateDate"));
+		obj.setDepartment(dep);
+		return obj;
+	}
+
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		Department dep = new Department();
+		dep.setId(rs.getInt("DepartmentId"));
+		dep.setName(rs.getString("DepName"));
+		return dep;
 	}
 
 	@Override
