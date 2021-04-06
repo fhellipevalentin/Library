@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +26,42 @@ public class BooksDaoJDBC implements BooksDao{
 	
 	@Override
 	public void insert(Books obj) {
-		// TODO Auto-generated method stub
 		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("INSERT INTO books "
+					+ "(Name, Genre, Author, MarketPrice, ReleaseDate, DonateDate, DepartmentId) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, obj.getName());
+			st.setString(2, obj.getGenre());
+			st.setString(3, obj.getAuthor());
+			st.setDouble(4, obj.getMarketPrice());
+			st.setDate(5, new java.sql.Date(obj.getReleaseDate().getTime()));
+			st.setDate(6, new java.sql.Date(obj.getDonateDate().getTime()));
+			st.setInt(7, obj.getDepartment().getId());
+			
+			int rowsAffected = st.executeUpdate();
+			
+			if(rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setId(id);
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Unexpected error! No rows affected! ");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
@@ -75,7 +110,7 @@ public class BooksDaoJDBC implements BooksDao{
 		obj.setId(rs.getInt("Id"));
 		obj.setName(rs.getString("Name"));
 		obj.setAuthor(rs.getString("Author"));
-		obj.setGender(rs.getString("Gender"));
+		obj.setGenre(rs.getString("Genre"));
 		obj.setMarketPrice(rs.getDouble("MarketPrice"));
 		obj.setReleaseDate(rs.getDate("ReleaseDate"));
 		obj.setDonateDate(rs.getDate("DonateDate"));

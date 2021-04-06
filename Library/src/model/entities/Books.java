@@ -9,7 +9,7 @@ public class Books implements Serializable {
 
 	private Integer id;
 	private String name;
-	private String gender;
+	private String genre;
 	private String author;
 	private Double marketPrice;
 	private Date releaseDate;
@@ -20,11 +20,11 @@ public class Books implements Serializable {
 	public Books() {
 		
 	}
-	public Books(Integer id, String name, String gender, String author, Double marketPrice, Date releaseDate,
+	public Books(Integer id, String name, String genre, String author, Double marketPrice, Date releaseDate,
 			Date donateDate, Department department) {
 		this.id = id;
 		this.name = name;
-		this.gender = gender;
+		this.genre = genre;
 		this.author = author;
 		this.marketPrice = marketPrice;
 		this.releaseDate = releaseDate;
@@ -43,11 +43,11 @@ public class Books implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getGender() {
-		return gender;
+	public String getGenre() {
+		return genre;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 	public String getAuthor() {
 		return author;
@@ -105,7 +105,7 @@ public class Books implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Books [id=" + id + ", name=" + name + ", gender=" + gender + ", author=" + author + ", marketPrice="
+		return "Books [id=" + id + ", name=" + name + ", genre=" + genre + ", author=" + author + ", marketPrice="
 				+ marketPrice + ", releaseDate=" + releaseDate + ", donateDate=" + donateDate + ", department="
 				+ department + "]";
 	}	
