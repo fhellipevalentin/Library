@@ -30,6 +30,10 @@ public class Program2 {
 		department.setName("Emprestado");
 		departmentDao.update(department);
 		System.out.println("Update Completed!");*/
+		
+		System.out.println("==== TEST 5: department delete ====");
+		departmentDao.deleteById(5);
+		System.out.println("Delete completed!");
 	}
 
 }
