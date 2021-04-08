@@ -95,7 +95,7 @@ public class BooksDaoJDBC implements BooksDao{
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("DELETE FROM books WHERE id = ?");
+			st = conn.prepareStatement("DELETE FROM book WHERE id = ?");
 			st.setInt(1, id);
 			
 			st.executeUpdate();
