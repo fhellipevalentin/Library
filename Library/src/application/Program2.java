@@ -24,7 +24,12 @@ public class Program2 {
 		Department newDepartment = new Department(null, "Borrowed");
 		departmentDao.insert(newDepartment);
 		System.out.println("Inserted! new Id = " + newDepartment.getId());
-		*/
+		
+		System.out.println("==== TEST 4: department update ====");
+		department = departmentDao.findById(4);
+		department.setName("Emprestado");
+		departmentDao.update(department);
+		System.out.println("Update Completed!");*/
 	}
 
 }
