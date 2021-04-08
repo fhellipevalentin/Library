@@ -66,13 +66,46 @@ public class BooksDaoJDBC implements BooksDao{
 
 	@Override
 	public void update(Books obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+		st = conn.prepareStatement("UPDATE books "
+				+ "SET Name = ?, Genre = ?, Author = ?, MarketPrice = ?, ReleaseDate = ?, DonateDate = ?, DepartmentId = ? "
+				+ "WHERE Id = ?");
 		
+		st.setString(1, obj.getName());
+		st.setString(2, obj.getGenre());
+		st.setString(3, obj.getAuthor());
+		st.setDouble(4, obj.getMarketPrice());
+		st.setDate(5, new java.sql.Date(obj.getReleaseDate().getTime()));
+		st.setDate(6, new java.sql.Date(obj.getDonateDate().getTime()));
+		st.setInt(7, obj.getDepartment().getId());
+		st.setInt(8, obj.getId());
+		
+		st.executeUpdate();
+	}
+	catch (SQLException e) {
+		throw new DbException(e.getMessage());
+	}
+	finally {
+		DB.closeStatement(st);
+	}
 	}
 
 	@Override
-	public void deleteById(Integer obj) {
-		// TODO Auto-generated method stub
+	public void deleteById(Integer id) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("DELETE FROM books WHERE id = ?");
+			st.setInt(1, id);
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 		
 	}
 
