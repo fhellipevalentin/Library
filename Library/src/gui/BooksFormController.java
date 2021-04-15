@@ -2,8 +2,11 @@ package gui;
 
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -18,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Books;
@@ -39,7 +43,37 @@ public class BooksFormController implements Initializable {
 	private TextField txtName;
 	
 	@FXML
+	private TextField txtGenre;
+	
+	@FXML
+	private TextField txtAuthor;
+	
+	@FXML
+	private TextField txtMarketPrice;
+	
+	@FXML
+	private DatePicker dpReleaseDate;
+	
+	@FXML
+	private DatePicker dpDonateDate;
+	
+	@FXML
 	private Label labelErrorName;
+	
+	@FXML
+	private Label labelErrorGenre;
+	
+	@FXML
+	private Label labelErrorAuthor;
+	
+	@FXML
+	private Label labelErrorMarketPrice;
+	
+	@FXML
+	private Label labelErrorReleaseDate;
+	
+	@FXML
+	private Label labelErrorDonateDate;
 	
 	@FXML
 	private Button btSave;
@@ -114,9 +148,15 @@ public class BooksFormController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
 	}
+	
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtName, 30);
+		Constraints.setTextFieldMaxLength(txtName, 70);
+		Constraints.setTextFieldMaxLength(txtGenre, 15);
+		Constraints.setTextFieldMaxLength(txtAuthor, 70);
+		Constraints.setTextFieldDouble(txtMarketPrice);
+		Utils.formatDatePicker(dpReleaseDate, "dd/MM/yyyy");
+		Utils.formatDatePicker(dpDonateDate, "dd/MM/yyyy");
 	}
 	public void updateFormData() {
 		if (entity == null) {
@@ -124,6 +164,16 @@ public class BooksFormController implements Initializable {
 		}
 		txtId.setText(String.valueOf(entity.getId()));
 		txtName.setText(entity.getName());
+		txtGenre.setText(entity.getGenre());
+		txtAuthor.setText(entity.getAuthor());
+		Locale.setDefault(Locale.US);
+		txtMarketPrice.setText(String.format("%.2f",entity.getMarketPrice()));
+		if (entity.getDonateDate() != null) {
+		dpDonateDate.setValue(LocalDate.ofInstant(entity.getDonateDate().toInstant(), ZoneId.systemDefault()));
+		}
+		if (entity.getReleaseDate() != null) {
+		dpReleaseDate.setValue(LocalDate.ofInstant(entity.getDonateDate().toInstant(), ZoneId.systemDefault()));
+		}
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {

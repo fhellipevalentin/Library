@@ -145,8 +145,8 @@ public class BooksDaoJDBC implements BooksDao{
 		obj.setAuthor(rs.getString("Author"));
 		obj.setGenre(rs.getString("Genre"));
 		obj.setMarketPrice(rs.getDouble("MarketPrice"));
-		obj.setReleaseDate(rs.getDate("ReleaseDate"));
-		obj.setDonateDate(rs.getDate("DonateDate"));
+		obj.setReleaseDate(new java.util.Date(rs.getTimestamp("ReleaseDate").getTime()));
+		obj.setDonateDate(new java.util.Date(rs.getTimestamp("DonateDate").getTime()));
 		obj.setDepartment(dep);
 		return obj;
 	}
