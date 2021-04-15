@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.BooksService;
 import model.services.DepartmentService;
 
 public class MainViewController implements Initializable{
@@ -31,7 +32,10 @@ public class MainViewController implements Initializable{
 	
 	@FXML
 	public void onMenuItemBooksAction() {
-		System.out.println("onMenuItemDepartmentAction");
+		loadView("/gui/BooksList.fxml", (BooksListController controller) -> {
+			controller.setBooksService(new BooksService());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML
