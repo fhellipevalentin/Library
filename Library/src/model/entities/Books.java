@@ -15,13 +15,13 @@ public class Books implements Serializable {
 	private Date releaseDate;
 	private Date donateDate;
 	
-	private Department department;
+	private Department departmentId;
 	
 	public Books() {
 		
 	}
 	public Books(Integer id, String name, String genre, String author, Double marketPrice, Date releaseDate,
-			Date donateDate, Department department) {
+			Date donateDate, Department departmentId) {
 		this.id = id;
 		this.name = name;
 		this.genre = genre;
@@ -29,7 +29,7 @@ public class Books implements Serializable {
 		this.marketPrice = marketPrice;
 		this.releaseDate = releaseDate;
 		this.donateDate = donateDate;
-		this.department = department;
+		this.departmentId = departmentId;
 	}
 	public Integer getId() {
 		return id;
@@ -74,10 +74,10 @@ public class Books implements Serializable {
 		this.donateDate = donateDate;
 	}
 	public Department getDepartment() {
-		return department;
+		return departmentId;
 	}
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setDepartment(Department departmentId) {
+		this.departmentId = departmentId;
 	}
 	
 	@Override
@@ -106,7 +106,7 @@ public class Books implements Serializable {
 	@Override
 	public String toString() {
 		return "Books [id=" + id + ", name=" + name + ", genre=" + genre + ", author=" + author + ", marketPrice="
-				+ marketPrice + ", releaseDate=" + releaseDate + ", donateDate=" + donateDate + ", department="
-				+ department + "]";
+				+ marketPrice + ", releaseDate=" + releaseDate + ", donateDate=" + donateDate + ", departmentId="
+				+ departmentId + "]";
 	}	
 }

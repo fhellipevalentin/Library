@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -44,6 +45,21 @@ public class BooksListController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Books, String> tableColumnName;
+	
+	@FXML
+	private TableColumn<Books, String> tableColumnGenre;
+	
+	@FXML
+	private TableColumn<Books, String> tableColumnAuthor;
+	
+	@FXML
+	private TableColumn<Books, Double> tableColumnMarketPrice;
+	
+	@FXML
+	private TableColumn<Books, Date> tableColumnReleaseDate;
+	
+	@FXML
+	private TableColumn<Books, Date> tableColumnDonateDate;
 
 	@FXML
 	private TableColumn<Books, Books> tableColumnEDIT;
@@ -70,7 +86,14 @@ public class BooksListController implements Initializable, DataChangeListener {
 	private void initalizeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+		tableColumnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+		tableColumnAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+		tableColumnMarketPrice.setCellValueFactory(new PropertyValueFactory<>("marketPrice"));
+		tableColumnReleaseDate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
+		Utils.formatTableColumnDate(tableColumnReleaseDate, "dd/MM/yyyy");
+		tableColumnDonateDate.setCellValueFactory(new PropertyValueFactory<>("donateDate"));
+		Utils.formatTableColumnDate(tableColumnDonateDate, "dd/MM/yyyy");
+		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewBooks.prefHeightProperty().bind(stage.heightProperty());
 
