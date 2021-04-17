@@ -32,6 +32,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Books;
 import model.services.BooksService;
+import model.services.DepartmentService;
 
 public class BooksListController implements Initializable, DataChangeListener {
 
@@ -124,7 +125,8 @@ public class BooksListController implements Initializable, DataChangeListener {
 
 			BooksFormController controller = loader.getController();
 			controller.setBooks(obj);
-			controller.setBooksService(new BooksService());
+			controller.setServices(new BooksService(), new DepartmentService());
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
@@ -137,6 +139,7 @@ public class BooksListController implements Initializable, DataChangeListener {
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
