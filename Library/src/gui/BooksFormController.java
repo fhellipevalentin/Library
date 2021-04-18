@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -145,7 +147,37 @@ public class BooksFormController implements Initializable {
 			exception.addError("name", "Field can't be empty");
 		}
 		obj.setName(txtName.getText());
-
+		if (txtGenre.getText() == null || txtGenre.getText().trim().equals("")) {
+			exception.addError("genre", "Field can't be empty");
+		}
+		obj.setGenre(txtGenre.getText());
+		if (txtAuthor.getText() == null || txtAuthor.getText().trim().equals("")) {
+			exception.addError("author", "Field can't be empty");
+		}
+		obj.setAuthor(txtAuthor.getText());
+		
+		if (txtMarketPrice.getText() == null || txtMarketPrice.getText().trim().equals("")) {
+			exception.addError("marketPrice", "Field can't be empty");
+		}
+		obj.setMarketPrice(Utils.tryParseToDouble(txtMarketPrice.getText()));
+		
+		if (dpReleaseDate.getValue() == null) {
+			exception.addError("releaseDate", "Field can't be empty");
+		}
+		else {
+			Instant instant = Instant.from(dpReleaseDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setReleaseDate(Date.from(instant));
+		}
+		if (dpDonateDate.getValue() == null) {
+			exception.addError("donateDate", "Field can't be empty");
+		}
+		else {
+			Instant donateDateInstant = Instant.from(dpDonateDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setDonateDate(Date.from(donateDateInstant));
+		}
+		
+		obj.setDepartment(comboBoxDepartment.getValue());
+		
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -210,9 +242,18 @@ public class BooksFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
-		if (fields.contains("name")) {
+		/*if (fields.contains("name")) {
 			labelErrorName.setText(errors.get("name"));
 		}
+		else {
+			labelErrorName.setText("");
+		}*/
+		labelErrorName.setText((fields.contains("name") ? errors.get("name") : ""));
+		labelErrorGenre.setText((fields.contains("genre") ? errors.get("genre") : ""));
+		labelErrorAuthor.setText((fields.contains("author") ? errors.get("author") : ""));
+		labelErrorMarketPrice.setText((fields.contains("marketPrice") ? errors.get("marketPrice") : ""));
+		labelErrorReleaseDate.setText((fields.contains("releaseDate") ? errors.get("releaseDate") : ""));
+		labelErrorDonateDate.setText((fields.contains("donateDate") ? errors.get("donateDate") : ""));
 	}
 
 	private void initializeComboBoxDepartment() {

@@ -34,35 +34,35 @@
          <children>
             <Label text="Id" />
             <Label text="Name" GridPane.rowIndex="1" />
-            <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
-            <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Genre" GridPane.rowIndex="2" />
+            <Label text="Author" GridPane.rowIndex="3" />
+            <Label text="MarketPrice" GridPane.rowIndex="4" />
+            <Label text="Release Date" GridPane.rowIndex="5" />
+            <Label text="Donate Date" GridPane.rowIndex="6" />
+            <Label text="Department" GridPane.rowIndex="7" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save" />
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="25.0" prefWidth="94.0" text="Save" />
                   <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancel" />
                </children>
                <padding>
                   <Insets top="5.0" />
                </padding>
             </HBox>
-            <Label text="Genre" GridPane.rowIndex="2" />
-            <Label text="Author" GridPane.rowIndex="3" />
-            <Label text="MarketPrice" GridPane.rowIndex="4" />
-            <Label text="Release Date" GridPane.rowIndex="5" />
+            <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtGenre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtAuthor" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtMarketPrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="dpReleaseDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Donate Date" GridPane.rowIndex="6" />
             <DatePicker fx:id="dpDonateDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="comboBoxDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label fx:id="labelErrorName" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="labelErrorGenre" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorAuthor" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorMarketPrice" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label fx:id="labelErrorReleaseDate" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Label fx:id="labelErrorDonateDate" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label text="Department" GridPane.rowIndex="7" />
-            <ComboBox fx:id="comboBoxDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </children>
